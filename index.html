@@ -1,0 +1,60 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>How Many FB Likes?</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/topcoat/0.8.0/css/topcoat-desktop-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+</head>
+<body>
+
+	<div class="area">
+		<h1 class="title">How Many FB Likes? <span id="res" class="topcoat-notification"></span></h1>
+		<form>
+		<textarea class="topcoat-textarea--large" rows="6" cols="36" placeholder="URLs"  id="url"></textarea>
+		<br><br>
+		<button class="topcoat-button--large">Go!</button>
+		</form>
+	</div>
+
+	<script>
+	$(document).ready(function() {
+		$('#res').hide();
+		$('form').submit(function(event) {
+			event.preventDefault();
+			var urls = $('#url').val().split('\n');
+			var query = 'SELECT like_count FROM link_stat WHERE url="' + urls.join('" OR url="') + '"';
+			$.ajax({
+				dataType: 'jsonp',
+				url: 'https://api.facebook.com/method/fql.query?callback=callback',
+				data: {
+					query: query,
+					format: 'JSON'
+				}
+		  	}).then(function(results) {
+				var total = 0;
+				_.each(_.pluck(results, 'like_count'), function(item) {
+					total += item;
+				});
+				$('#res').text(numeral(total).format(',')).show();
+			});
+		});
+	});
+	</script>
+
+	<style type="text/css">
+	body {
+		color: #fff;
+	}
+	.area {
+		width: 50vw;
+		margin: 2vh auto;
+	}
+	</style>
+
+	<!-- Composed by @djkmiles -->
+	<!-- Thanks for reading! -->
+
+</body>
+</html>
