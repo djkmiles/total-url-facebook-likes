@@ -1,0 +1,29 @@
+{
+  "name": "oav",
+  "version": "1.0.0",
+  "description": "Find total FB likes by pasting in a list of URLs!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djkmiles/total-url-facebook-likes.git"
+  },
+  "keywords": [
+    "facebook",
+    "fb",
+    "likes",
+    "graph",
+    "api"
+  ],
+  "author": "djkmiles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djkmiles/total-url-facebook-likes/issues"
+  },
+  "homepage": "https://github.com/djkmiles/total-url-facebook-likes#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
